@@ -3,13 +3,13 @@ const showField = (field) => {
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
             if (i === 1 && j === 1 || i === 2 && j === 1 || i === 0 && j === 1) {
-                fieldView += '|' + field[i][j] + '|'
+                fieldView += '| ' + field[i][j] + ' |'
             } else {
                 fieldView += ' ' + field[i][j];
             }
         }
         if (i !== 2) {
-            fieldView += '\n_______\n'
+            fieldView += '\n--+---+--\n'
         }
     }
     console.log(fieldView)
