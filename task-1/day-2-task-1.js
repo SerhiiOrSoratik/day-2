@@ -13,7 +13,7 @@ class Task {
     }
 
     toString() {
-        let options = { month: 'short', day: 'numeric' };
+        const options = { month: 'short', day: 'numeric' };
         console.log(this.index + '. ' + (this.done ? '[x]' : '[ ]') + ' ' + this.title + ' (' + this.dueDate.toLocaleDateString('en-US', options) + ') \n   ' + this.description);
     }
 
@@ -23,7 +23,7 @@ class Task {
 
     isOverdue() {
     
-        let nowDate = new Date();
+        const nowDate = new Date();
         if (nowDate.getMonth() > this.dueDate.getMonth()) {
             return false
         } else if (nowDate.getMonth() === this.dueDate.getMonth()) {
@@ -37,16 +37,21 @@ class Task {
         this.dueDate.setDate(this.dueDate.getDate() + timespan);
     }
 
+    postponeHours(timespan) {
+        const tempDate = new Date(this.dueDate.valueOf() + timespan * 1000 * 60 * 60);
+        this.dueDate = tempDate;
+    }
+
     setDescription(description) {
         this.description = description;
     }
 }
 
-let options = { month: 'short', day: 'numeric' };
+const options = { month: 'short', day: 'numeric' };
 
-let date1 = new Date(2021, 7, 17);
-let date2 = new Date(2021, 6, 20);
-let date3 = new Date(2021, 5, 20);
+const date1 = new Date(2021, 7, 17);
+const date2 = new Date(2021, 6, 20);
+const date3 = new Date(2021, 5, 20);
 
 let task1 = new Task(1, true, 'Implement task output', date1, 'Use fields: title, desc, done, dueDate');
 let task2 = new Task(2, false, 'Task1', date2, 'Very intreresting description');
@@ -60,6 +65,7 @@ console.log(task1.isOverdue());
 
 task2.toString();
 task2.toogle();
+task2.postponeHours(24);
 task2.toString();
 console.log(task2.isOverdue());
 

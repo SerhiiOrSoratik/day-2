@@ -31,10 +31,10 @@ const checkConditionGame = (field, symbol) => {
 }
 
 const playerTurn = (field) => {
-    let pos = prompt('Enter position: x, y')
-    let position = pos.split(' ');
-    let y = position[0] - 1;
-    let x = position[1] - 1;
+    const pos = prompt('Enter position: x, y')
+    const position = pos.split(' ');
+    const y = position[0] - 1;
+    const x = position[1] - 1;
     if (field[x][y] === ' ') {
         field[x][y] = 'x';
         console.clear();
@@ -51,7 +51,7 @@ const playerTurn = (field) => {
 }
 
 const endGame = () => {
-    let again = prompt('Play again? Press Y/y')
+    const again = prompt('Play again? Press Y/y')
     if (again === 'y' || again === 'Y') {
         main();
     }
@@ -61,8 +61,8 @@ const enemyTurn = (field) => {
 
     let isTurnEnd = true;
     while (isTurnEnd) {
-        let x = Math.floor(Math.random() * 3);
-        let y = Math.floor(Math.random() * 3)
+        const x = Math.floor(Math.random() * 3);
+        const y = Math.floor(Math.random() * 3)
         if (field[x][y] === ' ') {
             isTurnEnd = false;
             field[x][y] = 'o'
