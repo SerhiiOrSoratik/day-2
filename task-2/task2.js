@@ -3,7 +3,6 @@ const showField = (field) => {
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
             if (i === 1 && j === 1 || i === 2 && j === 1 || i === 0 && j === 1) {
-
                 fieldView += '|' + field[i][j] + '|'
             } else {
                 fieldView += ' ' + field[i][j];
@@ -12,13 +11,15 @@ const showField = (field) => {
         if (i !== 2) {
             fieldView += '\n_______\n'
         }
-
     }
     console.log(fieldView)
-
 }
 
 const checkConditionGame = (field, symbol) => {
+    if (field[0].includes(' ') === false && field[1].includes(' ') === false && field[2].includes(' ') === false) {
+        console.log('DRAW!')
+        endGame();
+    }
     return !(field[0][0] === symbol && field[1][0] === symbol && field[2][0] === symbol ||
         field[0][1] === symbol && field[1][1] === symbol && field[2][1] === symbol ||
         field[0][2] === symbol && field[1][2] === symbol && field[2][2] === symbol ||
@@ -39,17 +40,20 @@ const playerTurn = (field) => {
         console.clear();
         showField(field);
         if (checkConditionGame(field, 'x')) {
-
             enemyTurn(field);
         } else {
             console.log('WINER: x');
-            let again = prompt('Play again? Press Y/y')
-            if (again === 'y' || again === 'Y') {
-                main();
-            }
+            endGame();
         }
     } else {
         playerTurn(field);
+    }
+}
+
+const endGame = () => {
+    let again = prompt('Play again? Press Y/y')
+    if (again === 'y' || again === 'Y') {
+        main();
     }
 }
 
@@ -64,7 +68,13 @@ const enemyTurn = (field) => {
             field[x][y] = 'o'
             console.clear();
             showField(field);
-            checkConditionGame(field, 'o') ? playerTurn(field) : console.log('WINER: ' + 'o');
+
+            if (checkConditionGame(field, 'o')) {
+                playerTurn(field)
+            } else {
+                console.log('WINER: o');
+                endGame();
+            }
         }
     }
 }
