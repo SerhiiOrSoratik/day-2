@@ -60,7 +60,6 @@ console.log(task1.isOverdue());
 
 task2.toString();
 task2.toogle();
-task2.postponeMonth(1);
 task2.toString();
 console.log(task2.isOverdue());
 
