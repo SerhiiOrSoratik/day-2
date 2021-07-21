@@ -19,46 +19,54 @@ const checkConditionGame = (field, symbol) => {
     if (field[0].includes(' ') === false && field[1].includes(' ') === false && field[2].includes(' ') === false) {
         console.log('DRAW!')
         endGame();
+        return false;
+    } else {
+        return !(field[0][0] === symbol && field[1][0] === symbol && field[2][0] === symbol ||
+            field[0][1] === symbol && field[1][1] === symbol && field[2][1] === symbol ||
+            field[0][2] === symbol && field[1][2] === symbol && field[2][2] === symbol ||
+            field[0][0] === symbol && field[0][1] === symbol && field[0][2] === symbol ||
+            field[1][0] === symbol && field[1][1] === symbol && field[1][2] === symbol ||
+            field[2][0] === symbol && field[2][1] === symbol && field[2][2] === symbol ||
+            field[0][0] === symbol && field[1][1] === symbol && field[2][2] === symbol ||
+            field[0][2] === symbol && field[1][1] === symbol && field[2][0] === symbol);
     }
-    return !(field[0][0] === symbol && field[1][0] === symbol && field[2][0] === symbol ||
-        field[0][1] === symbol && field[1][1] === symbol && field[2][1] === symbol ||
-        field[0][2] === symbol && field[1][2] === symbol && field[2][2] === symbol ||
-        field[0][0] === symbol && field[0][1] === symbol && field[0][2] === symbol ||
-        field[1][0] === symbol && field[1][1] === symbol && field[1][2] === symbol ||
-        field[2][0] === symbol && field[2][1] === symbol && field[2][2] === symbol ||
-        field[0][0] === symbol && field[1][1] === symbol && field[2][2] === symbol ||
-        field[0][2] === symbol && field[1][1] === symbol && field[2][0] === symbol);
 }
 
 const playerTurn = (field) => {
-    const pos = prompt('Enter position: x, y')
-    const position = pos.split(' ');
-    const y = position[0] - 1;
-    const x = position[1] - 1;
-    if (field[x][y] === ' ') {
-        field[x][y] = 'x';
-        console.clear();
-        showField(field);
-        if (checkConditionGame(field, 'x')) {
-            enemyTurn(field);
+        const pos = dialog('Enter position x y: ');
+        const position = pos.split(' ');
+        const y = position[0] - 1;
+        const x = position[1] - 1;
+        if (field[x][y] === ' ') {
+            field[x][y] = 'x';
+            console.clear();
+            showField(field);
+            if (checkConditionGame(field, 'x')) {
+                enemyTurn(field);
+            } else {
+                console.log('WINER: x');
+                endGame();
+            }
         } else {
-            console.log('WINER: x');
-            endGame();
+            playerTurn(field);
         }
-    } else {
-        playerTurn(field);
-    }
+}
+
+const dialog = (text) => {
+   let readline = require('readline-sync');
+   let answer = readline.question(text);
+   console.log(answer)
+    return answer;
 }
 
 const endGame = () => {
-    const again = prompt('Play again? Press Y/y')
-    if (again === 'y' || again === 'Y') {
-        main();
-    }
+    const again = dialog('Play again? ');
+        if (again === 'y' || again === 'Y') {
+            main();
+        }
 }
 
 const enemyTurn = (field) => {
-
     let isTurnEnd = true;
     while (isTurnEnd) {
         const x = Math.floor(Math.random() * 3);
@@ -91,3 +99,4 @@ const main = () => {
 }
 
 main()
+export default checkConditionGame;

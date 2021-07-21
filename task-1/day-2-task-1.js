@@ -1,4 +1,4 @@
-class Task {
+export default  class Task {
     done;
     title;
     dueDate;
@@ -22,7 +22,6 @@ class Task {
     }
 
     isOverdue() {
-    
         const nowDate = new Date();
         if (nowDate.getMonth() > this.dueDate.getMonth()) {
             return true
@@ -46,8 +45,6 @@ class Task {
         this.description = description;
     }
 }
-
-const options = { month: 'short', day: 'numeric' };
 
 const date1 = new Date(2021, 7, 17);
 const date2 = new Date(2021, 6, 20);
