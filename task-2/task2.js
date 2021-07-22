@@ -54,9 +54,7 @@ const playerTurn = (field) => {
 
 const dialog = (text) => {
    let readline = require('readline-sync');
-   let answer = readline.question(text);
-   console.log(answer)
-    return answer;
+   return readline.question(text);
 }
 
 const endGame = () => {
@@ -76,7 +74,6 @@ const enemyTurn = (field) => {
             field[x][y] = 'o'
             console.clear();
             showField(field);
-
             if (checkConditionGame(field, 'o')) {
                 playerTurn(field)
             } else {
